@@ -3,21 +3,26 @@
  */
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const out_dir = __dirname+'/../dist';
 module.exports = {
     entry: {
         javascript: './client/App.js',
         vendor: ['react',
-            'react-dom']
+            'react-dom'],
+        html: './client/index.html'
     },
     output: {
-        path: out_dir+"/client",
+        path: out_dir+"/",
         filename: 'bundle.js',
         sourceMapFilename : "[file].map"
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
+        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
+        new HtmlWebpackPlugin({
+            title: 'Webpack demo',
+        }),
     ],
     module: {
         preLoaders: [
@@ -42,12 +47,12 @@ module.exports = {
         resolve: {
             modulesDirectories: [ 'node_modules' ],
             extensions: [ '', '.js', '.jsx' ]
-        },
-        debug: true,
-        devtool: 'source-map',
-        devServer: {
-            inline: true,
-            port: 8000
         }
+    },
+    devtool: 'source-map',
+    devServer: {
+        inline:true,
+        port: 8000,
+        contentBase: path.resolve(__dirname, '../dist')
     }
 }
