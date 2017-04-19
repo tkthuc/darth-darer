@@ -40,6 +40,10 @@ ol, ul {
   background: #ddd;
 }
 
+.highlight{
+  background: green;
+}
+
 .game {
   display: flex;
   flex-direction: row;
