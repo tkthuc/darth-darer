@@ -33,6 +33,9 @@
     "linebreak-style" : [0],
     "no-unused-vars" : [0],
     "import/extensions" : [0],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "key-spacing" : [0],
+    "indent": [0],
+    "no-use-before-define": [0]
   }
 }
