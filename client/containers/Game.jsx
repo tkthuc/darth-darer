@@ -13,7 +13,7 @@ class Game extends React.Component {
       if (winner || squares[i]) {
         return;
       }
-      this.props.makeMove(i, !this.props.xIsNext);
+      this.props.makeMove(i, !current.xIsNext);
   }
 
   render() {
@@ -50,7 +50,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ state }) {
-  return { history : state.history, xIsNext: state.xIsNext };
+  return { history : state.present };
 }
 
 
