@@ -1,8 +1,12 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { ActionCreators as UndoActionCreators } from 'redux-undo';
+
 import Board from '../components/Board.jsx';
+import UndoRedo from '../components/UndoRedoButton.jsx';
 import { makeMove } from '../actions';
+
 
 class Game extends React.Component {
   handleClick(i) {
@@ -39,18 +43,25 @@ class Game extends React.Component {
         <div className='game-info'>
           <div>{status}</div>
         </div>
+        <div className='game-info'>
+          <UndoRedo name='Undo' perform={ this.props.onUndo } isDisabled={ !this.props.canUndo } />
+          <UndoRedo name='Redo' perform={ this.props.onRedo } isDisabled={ !this.props.canRedo } />
+        </div>
       </div>
     );
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  const check = makeMove;
-  return bindActionCreators({ makeMove }, dispatch);
+  const onUndo = UndoActionCreators.undo;
+  const onRedo = UndoActionCreators.redo;
+  return bindActionCreators({ makeMove, onUndo, onRedo }, dispatch);
 }
 
 function mapStateToProps({ state }) {
-  return { history : state.present };
+  const canUndo = state.past.length > 0;
+  const canRedo = state.future.length > 0;
+  return { history : state.present, canRedo, canUndo };
 }
 
 
